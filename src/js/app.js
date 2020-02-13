@@ -1,4 +1,8 @@
-require([ 'esri/Map', 'esri/views/MapView' ], function(Map, MapView) {
+require([
+	"esri/Map",
+	"esri/views/MapView",
+	"esri/layers/Layer"
+], function (Map, MapView, Layer) {
 	let map = new Map({
 		basemap: 'topo-vector'
 	});
@@ -6,7 +10,51 @@ require([ 'esri/Map', 'esri/views/MapView' ], function(Map, MapView) {
 	let view = new MapView({
 		container: 'viewDiv',
 		map: map,
-		center: [ -118.805, 34.027 ], // longitude, latitude
-		zoom: 13
+		center: [-95.80500, 44.02700], // longitude, latitude
+		zoom: 4
 	});
+
+	// Add coordinates
+	let coordsWidget = document.createElement("div");
+	coordsWidget.id = "coordsWidget";
+	coordsWidget.className = "esri-widget esri-component";
+	coordsWidget.style.padding = "7px 15px 5px";
+
+	view.ui.add(coordsWidget, "bottom-right");
+
+	//*** ADD ***//
+	function showCoordinates(pt) {
+		var coords = "Lat/Lon " + pt.latitude.toFixed(3) + " " + pt.longitude.toFixed(3) +
+			" | Scale 1:" + Math.round(view.scale * 1) / 1 +
+			" | Zoom " + view.zoom;
+		coordsWidget.innerHTML = coords;
+	}
+	view.watch("stationary", function (isStationary) {
+		showCoordinates(view.center);
+	});
+
+	view.on("pointer-move", function (evt) {
+		showCoordinates(view.toMap({ x: evt.x, y: evt.y }));
+	});
+
+
+	function addLayer(layerItemPromise, index) {
+		return layerItemPromise.then(function (layer) {
+			map.add(layer, index);
+		});
+	}
+
+	let corvirData = Layer.fromPortalItem({
+		portalItem: {
+			id: "c0b356e20b30490c8b8b4c7bb9554e7c"
+		}
+	});
+
+	addLayer(corvirData, 0);
 });
+
+
+// Map Layer for corvir data overlay
+// c0b356e20b30490c8b8b4c7bb9554e7c
+
+
