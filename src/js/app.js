@@ -1,23 +1,14 @@
 // require('axios');
-function getDataSet() {
-	fetch('./data.json').then(response => {
-		return response.json();
-	}).then(data => {
-		console.log(data);
-	}).catch(err => {
-		console.log(err);
-	});
-}
-
-async function updateViewData() {
-	let newData = await getDataSet();
-	console.log(newData);
-	document.querySelector('#infTotal').innerHTML = newData.data.confirmed_infected;
-	document.querySelector('#casuTotal').innerHTML = newData.data.confirmed_casualties;
-	document.querySelector('#recTotal').innerHTML = newData.data.confirmed_recovered;
-}
-
-updateViewData();
+fetch('../src/data.json').then(response => {
+	return response.json();
+}).then(data => {
+	console.log(data);
+	document.querySelector('#infTotal').innerHTML = data.confirmed_infected;
+	document.querySelector('#casuTotal').innerHTML = data.confirmed_casualties;
+	document.querySelector('#recTotal').innerHTML = data.confirmed_recovered;
+}).catch(err => {
+	console.log(err);
+});
 
 
 require([
