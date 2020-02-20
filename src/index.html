@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
-    <link rel="stylesheet" href="./css/style.css">
-    <title>ArcGIS JavaScript Tutorials: Create a JavaScript starter app</title>
 
-  </head>
-  <body>
-    <header></header>
-    <main class="container">
-      <section class="data">
-        <article class="data-box">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://js.arcgis.com/4.13/esri/themes/light/main.css">
+  <link rel="stylesheet" href="./css/style.css">
+  <title>COVID-19 Map </title>
 
-        </article>
+</head>
 
-        <article class="data-box">
+<body>
+  <header>
+    <h1>COVID-19 (2019-nCoV) - LIVE UPDATES</h1>
+    <h3 class="today_date"></h3>
+  </header>
+  <main class="container">
+    <section class="data">
+      <article class="data-box infected_total">
+        <h2>TOTAL INFECTED (Confirmed)</h2>
+        <h1 id="infTotal">75,660<span>+15,000 from prev day</span></h1>
 
-        </article>
+        <h2>100,000+ (suspected)</h2>
+      </article>
 
-        <article class="data-box">
+      <article class="data-box death_total">
+        <h2>CASUALTIES</h2>
+        <h1 id="casuTotal">2,124</h1>
+      </article>
 
-        </article>
-      </section>
-      <section class="map-container">
-        <div id="viewDiv"></div>
-      </section>
-    </main>
+      <article class="data-box recover_total">
+        <h2>RECOVERED</h2>
+        <h1 id="recTotal">16,184</h1>
+      </article>
+    </section>
+    <section class="map-container">
+      <div id="viewDiv"></div>
+    </section>
+  </main>
 
 
-    <script src="https://js.arcgis.com/4.13/"></script>
-    <script src="./js/app.js"></script>
-  </body>
+  <script src="https://js.arcgis.com/4.13/"></script>
+  <script src="./js/app.js"></script>
+</body>
+
 </html>

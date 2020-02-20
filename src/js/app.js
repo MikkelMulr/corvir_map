@@ -1,3 +1,25 @@
+// require('axios');
+function getDataSet() {
+	fetch('./data.json').then(response => {
+		return response.json();
+	}).then(data => {
+		console.log(data);
+	}).catch(err => {
+		console.log(err);
+	});
+}
+
+async function updateViewData() {
+	let newData = await getDataSet();
+	console.log(newData);
+	document.querySelector('#infTotal').innerHTML = newData.data.confirmed_infected;
+	document.querySelector('#casuTotal').innerHTML = newData.data.confirmed_casualties;
+	document.querySelector('#recTotal').innerHTML = newData.data.confirmed_recovered;
+}
+
+updateViewData();
+
+
 require([
 	"esri/Map",
 	"esri/views/MapView",
@@ -24,9 +46,9 @@ require([
 
 	//*** ADD ***//
 	function showCoordinates(pt) {
-		var coords = "Lat/Lon " + pt.latitude.toFixed(3) + " " + pt.longitude.toFixed(3) +
-			" | Scale 1:" + Math.round(view.scale * 1) / 1 +
-			" | Zoom " + view.zoom;
+		let coords = `Lat/Lon  ${pt.latitude.toFixed(3)}  ${pt.longitude.toFixed(3)}
+			 | Scale 1: ${Math.round(view.scale * 1) / 1} 
+			 | Zoom  ${view.zoom}`;
 		coordsWidget.innerHTML = coords;
 	}
 	view.watch("stationary", function (isStationary) {
@@ -56,5 +78,7 @@ require([
 
 // Map Layer for corvir data overlay
 // c0b356e20b30490c8b8b4c7bb9554e7c
+
+document.querySelector('.today_date').innerHTML = `Last update: ${new Date().getMonth() + 1}/ ${new Date().getDate()}/ ${new Date().getFullYear()}`;
 
 
